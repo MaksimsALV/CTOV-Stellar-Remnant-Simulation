@@ -12,10 +12,12 @@ public class Collapse {
             return "Star at the moment of collapse has a mass of " + starMassKgToSolarMassStandardConverter(starMassAtTheMomentOfCollapse) + " M☉, therefore it collapses into " + WHITE_DWARF_STAR.getLabel() + " with potential mass of: " + starWhiteDwarfMass + " kg, or " + String.format("%.1f", starMassKgToSolarMassStandardConverter(starWhiteDwarfMass)) + " M☉";
         }
         if (starMassAtTheMomentOfCollapse >= SUN_MASS_KG * 8.0 && starMassAtTheMomentOfCollapse < SUN_MASS_KG * 25.0) {
-            return "Collapses into" + NEUTRON_STAR.getLabel() + " with potential mass of: " + starNeutronMass();
+            var starNeutronMass = starNeutronMass();
+            return "Star at the moment of collapse has a mass of " + starMassKgToSolarMassStandardConverter(starMassAtTheMomentOfCollapse) + " M☉, therefore it collapses into " + NEUTRON_STAR.getLabel() + " with potential mass of: " + starNeutronMass + " kg, or " + String.format("%.1f", starMassKgToSolarMassStandardConverter(starNeutronMass)) + " M☉";
         }
         if (starMassAtTheMomentOfCollapse > SUN_MASS_KG * 25.0) {
-            return "Collapses into" + BLACK_HOLE.getLabel() + " with potential mass of: " + starBlackHoleMass();
+            var starBlackHoleMass = starBlackHoleMass();
+            return "Star at the moment of collapse has a mass of " + starMassKgToSolarMassStandardConverter(starMassAtTheMomentOfCollapse) + " M☉, therefore it collapses into " + BLACK_HOLE.getLabel() + " with potential mass of: " + starBlackHoleMass + " kg, or " + String.format("%.1f", starMassKgToSolarMassStandardConverter(starBlackHoleMass)) + " M☉";
         }
         return "";
     }
