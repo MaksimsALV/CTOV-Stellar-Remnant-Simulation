@@ -1,8 +1,17 @@
 package data;
 
 public enum Stars {
-    STAR,
-    SUN_STAR,
-    WHITE_DWARF_STAR,
-    NEUTRON_STAR,
+    STAR("Star"),
+    SUN_STAR("Sun"),
+    WHITE_DWARF_STAR("White Dwarf"),
+    NEUTRON_STAR("Neutron Star"),
+    BLACK_HOLE("Black Hole");
+
+    private final String label;
+    Stars(String label) {
+        this.label = label;
+    }
+    public String getLabel() {
+        return label;
+    }
 }

@@ -15,4 +15,10 @@ public final class StellarMass {
             var maximumMass = 2 * SUN_MASS_KG;
             return minimumMass + (maximumMass - minimumMass) * Math.random();
         }
+
+        public static double starBlackHoleMass() {
+            var minimumMass = 3.0 * SUN_MASS_KG;
+            var maximumMass = 50.0 * SUN_MASS_KG;
+            return minimumMass + (maximumMass - minimumMass) * Math.random();
+        }
 }
