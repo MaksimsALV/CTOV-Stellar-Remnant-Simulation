@@ -17,8 +17,8 @@ public class RequestController {
 
     @PostMapping
     public ResponseEntity<CollapseDto> post(@RequestBody RequestDto request) {
-        if (request.solarMass > 0.0) {
-            CollapseDto response = collapse.collapse(request.solarMass);
+        if (request.coreSolarMass > 0.0) {
+            CollapseDto response = collapse.collapse(request.coreSolarMass);
             return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.badRequest().build();
