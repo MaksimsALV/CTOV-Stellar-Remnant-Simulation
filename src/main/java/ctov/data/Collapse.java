@@ -1,28 +1,27 @@
 package ctov.data;
 
+import ctov.api.dto.CollapseDto;
+
 public class Collapse {
     private final StellarMass stellarMass = new StellarMass();
 
-    public String collapse(double solarMass) {
+    public CollapseDto collapse(double solarMass) {
+        CollapseDto dto = new CollapseDto();
+
         if (solarMass < Constants.CHANDRASEKHAR_LIMIT_SOLAR) {
-            return collapseMessage(solarMass, RemnantType.WHITE_DWARF, stellarMass.whiteDwarfSolarMass());
+            dto.remnantAfterCollapse = RemnantType.WHITE_DWARF.getRemnantType();
+            dto.remnantSolarMass = stellarMass.whiteDwarfSolarMass();
+            return dto;
         }
 
         if (solarMass < Constants.TOV_LIMIT_SOLAR) {
-            return collapseMessage(solarMass, RemnantType.NEUTRON_STAR, stellarMass.neutronStarSolarMass());
+            dto.remnantAfterCollapse = RemnantType.NEUTRON_STAR.getRemnantType();
+            dto.remnantSolarMass = stellarMass.neutronStarSolarMass();
+            return dto;
         }
 
-        return collapseMessage(solarMass, RemnantType.BLACK_HOLE, stellarMass.blackHoleSolarMass());
-    }
-
-    //helper
-    private String collapseMessage(double solarMass, RemnantType remnantType, double remnantMass) {
-        return "Star at the moment of collapse has a mass of "
-                + String.format("%.2f", solarMass)
-                + " M☉, therefore it collapses into "
-                + remnantType.getRemnantType()
-                + " with mass "
-                + String.format("%.2f", remnantMass)
-                + " M☉";
+        dto.remnantAfterCollapse = RemnantType.BLACK_HOLE.getRemnantType();
+        dto.remnantSolarMass = stellarMass.blackHoleSolarMass();
+        return dto;
     }
 }
