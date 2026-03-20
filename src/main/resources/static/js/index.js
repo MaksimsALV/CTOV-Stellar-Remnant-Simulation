@@ -7,7 +7,7 @@ const resultImage = document.getElementById("resultImage");
 
 const blackHoleVideoPath = "/videos/black-hole.mp4";
 const neutronStarVideoPath = "/videos/Neutron_star_from_supernova.webm";
-const whiteDwarfImagePath = "/images/white-dwarf.jpg";
+const whiteDwarfVideoPath = "/videos/WDStar_4k_60fps_ProRes.webm";
 
 massRange.addEventListener("input", () => {
     massValue.textContent = massRange.value;
@@ -43,8 +43,7 @@ executeBtn.addEventListener("click", async () => {
     } else if (type.includes("neutron")) {
         showVideo(neutronStarVideoPath);
     } else {
-        resultImage.src = whiteDwarfImagePath;
-        resultImage.style.display = "block";
+        showVideo(whiteDwarfVideoPath);
     }
 });
 
