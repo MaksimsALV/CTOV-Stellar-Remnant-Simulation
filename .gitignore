@@ -34,3 +34,6 @@ build/
 
 ### app props
 /src/main/resources/application.properties
+
+### videos
+/src/main/resources/static/videos

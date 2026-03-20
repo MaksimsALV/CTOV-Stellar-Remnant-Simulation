@@ -6,14 +6,11 @@ const resultVideo = document.getElementById("resultVideo");
 const resultImage = document.getElementById("resultImage");
 
 const blackHoleVideoPath = "/videos/black-hole.mp4";
+const neutronStarVideoPath = "/videos/Neutron_star_from_supernova.webm";
+const whiteDwarfImagePath = "/images/white-dwarf.jpg";
 
 massRange.addEventListener("input", () => {
     massValue.textContent = massRange.value;
-});
-
-window.addEventListener("load", () => {
-    resultVideo.src = blackHoleVideoPath;
-    resultVideo.load();
 });
 
 executeBtn.addEventListener("click", async () => {
@@ -42,20 +39,27 @@ executeBtn.addEventListener("click", async () => {
     const type = data.remnantAfterCollapse.toLowerCase();
 
     if (type.includes("black")) {
-        resultVideo.style.display = "block";
-        resultVideo.currentTime = 0;
-        resultVideo.play();
+        showVideo(blackHoleVideoPath);
     } else if (type.includes("neutron")) {
-        resultImage.src = "/images/neutron-star.jpg";
-        resultImage.style.display = "block";
+        showVideo(neutronStarVideoPath);
     } else {
-        resultImage.src = "/images/white-dwarf.jpg";
+        resultImage.src = whiteDwarfImagePath;
         resultImage.style.display = "block";
     }
 });
 
+function showVideo(path) {
+    resultVideo.src = path;
+    resultVideo.style.display = "block";
+    resultVideo.load();
+    resultVideo.currentTime = 0;
+    resultVideo.play().catch(() => {});
+}
+
 function hideMedia() {
     resultVideo.pause();
+    resultVideo.removeAttribute("src");
+    resultVideo.load();
     resultVideo.style.display = "none";
 
     resultImage.removeAttribute("src");
