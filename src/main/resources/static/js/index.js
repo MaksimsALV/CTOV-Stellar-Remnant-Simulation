@@ -3,30 +3,21 @@ const massValue = document.getElementById("massValue");
 const executeBtn = document.getElementById("executeBtn");
 const result = document.getElementById("result");
 const resultVideo = document.getElementById("resultVideo");
-const resultImage = document.getElementById("resultImage");
 
 const blackHoleVideoPath = "/videos/black-hole.mp4";
 const neutronStarVideoPath = "/videos/Neutron_star_from_supernova.webm";
 const whiteDwarfVideoPath = "/videos/WDStar_4k_60fps_ProRes.webm";
 const skyMapVideoPath = "/videos/skymap.webm";
 
+const FADE_DURATION_MS = 4000;
+
 massRange.addEventListener("input", () => {
     massValue.textContent = massRange.value;
 });
 
 window.addEventListener("load", () => {
-    resultVideo.src = skyMapVideoPath;
-    resultVideo.style.display = "block";
-    resultVideo.style.transition = "opacity 4s ease";
-    resultVideo.style.opacity = "1";
-    resultVideo.playbackRate = 0.5;
-    resultVideo.load();
-
-    resultVideo.onloadedmetadata = () => {
-        resultVideo.currentTime = 0;
-        resultVideo.playbackRate = 0.5;
-        resultVideo.play().catch(() => {});
-    };
+    resultVideo.style.transition = `opacity ${FADE_DURATION_MS}ms ease`;
+    playVideo(skyMapVideoPath, 0.5);
 });
 
 executeBtn.addEventListener("click", async () => {
@@ -48,7 +39,7 @@ executeBtn.addEventListener("click", async () => {
     const data = await response.json();
 
     result.textContent =
-        data.remnantAfterCollapse + " | " + Number(data.remnantSolarMass).toFixed(2) + " M☉";
+        `${data.remnantAfterCollapse} | ${Number(data.remnantSolarMass).toFixed(2)} M☉`;
 
     const type = data.remnantAfterCollapse.toLowerCase();
 
@@ -61,23 +52,22 @@ executeBtn.addEventListener("click", async () => {
     }
 });
 
-function hideMedia() {
-    resultImage.removeAttribute("src");
-    resultImage.style.display = "none";
+function playVideo(path, speed) {
+    resultVideo.src = path;
+    resultVideo.load();
+
+    resultVideo.onloadedmetadata = () => {
+        resultVideo.currentTime = 0;
+        resultVideo.playbackRate = speed;
+        resultVideo.play().catch(() => {});
+    };
 }
 
 function showVideo(path, speed = 1) {
     resultVideo.style.opacity = "0";
 
     setTimeout(() => {
-        resultVideo.src = path;
-        resultVideo.load();
-
-        resultVideo.onloadedmetadata = () => {
-            resultVideo.currentTime = 0;
-            resultVideo.playbackRate = speed;
-            resultVideo.play().catch(() => {});
-            resultVideo.style.opacity = "1";
-        };
-    }, 4000);
+        playVideo(path, speed);
+        resultVideo.style.opacity = "1";
+    }, FADE_DURATION_MS);
 }
